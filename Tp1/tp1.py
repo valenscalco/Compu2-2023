@@ -18,6 +18,9 @@ def main():
         print("No such file or directory: ", file_name)
         sys.exit()
 
+    if (len(lines) == 0):
+        raise ValueError("El archivo está vacío.")
+
     # Creo pipes y agrego en las listas de read y write respectivamente
     rpipe = []
     wpipe = []
