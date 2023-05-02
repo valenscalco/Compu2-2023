@@ -33,13 +33,13 @@ def main():
         if pid == 0:
             pipe = os.fdopen(rpipe[j])
             while True:
-                leido = pipe.readline()
-                if (len(leido) != 0):
-                    leido = str(leido)[:-1]
-                    leido_split = leido.split("-")[1]
-                    investedText = leido_split[::-1]
-                    returnText = leido_split[0]+"-" + investedText+"\n"
-                    os.write(w0, returnText.encode("utf-8"))
+                read = pipe.readline()
+                if (len(read) != 0):
+                    read = str(read)[:-1]
+                    read_split = read.split("-")[1]
+                    invert = read_split[::-1]
+                    separate_invert = read_split[0] + "-" + invert + "\n"
+                    os.write(w0, separate_invert.encode("utf-8"))
                     pipe.close()
                     os._exit(0)
 
@@ -51,11 +51,11 @@ def main():
     # Leo, decodifico y divido para que cada linea me quede dentro de la lista como un elemento distinto
     for i in range(len(lines)):
         os.wait()
-    leido = os.read(r0, 1000)
-    leido = leido.decode()
-    leido_split = leido.split("\n")
+    read = os.read(r0, 1000)
+    read = read.decode()
+    read_split = read.split("\n")
     invert_list = []
-    for content in leido_split:
+    for content in read_split:
         if (len(content) != 0):
             content = content.split("-")
             invert_list.append(content[1])
