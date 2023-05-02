@@ -1,4 +1,5 @@
 import os
+import sys
 import argparse
 
 
@@ -6,12 +7,15 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--file", required=True, help="Archivo a procesar")
     args = parser.parse_args()
-
     file_name = args.file
 
-    with open(file_name) as file:
-        lines = file.readlines()
-        file.close
+    try:
+        with open(file_name) as file:
+            lines = file.readlines()
+            file.close
+    except OSError:
+        print("No such file or directory: ", file_name)
+        sys.exit()
 
     rpipe = []
     wpipe = []
@@ -46,12 +50,10 @@ def main():
     leido = leido.decode()
     leido_split = leido.split("\n")
     invert_list = []
-
     for text in leido_split:
         if (len(text) != 0):
             text = text.split("-")
             invert_list.append(text[1])
-
     for sentence in invert_list:
         print(sentence)
 
